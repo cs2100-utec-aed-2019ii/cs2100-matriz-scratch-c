@@ -9,11 +9,13 @@ class Node {
 		int posX;
 		int posY;
 		Node<T>* next;
+		Node<T>* prev;
 		Node<T>* down;
 		Node(T value){
 			this->data = value;
 			next = nullptr;
 			down = nullptr;
+			prev = nullptr;
 		};
 };
 

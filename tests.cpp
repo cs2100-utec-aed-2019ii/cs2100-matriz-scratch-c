@@ -2,9 +2,18 @@
 
 int main(){
 	circular_list<int>* list = new circular_list<int>();
-	list->insert_value(10);
-	list->insert_value(15);
-	list->insert_value(45);
+	list->push_back(10);
 	list->print_values();
+	list->push_back(15);
+	list->print_values();
+	list->push_back(45);
+	list->print_values();
+	list->push_front(69);
+	list->print_values();
+	list->pop_front();
+	list->print_values();
+	list->pop_back();
+	list->print_values();
+
 	return 0;
 }
