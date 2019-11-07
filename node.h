@@ -8,15 +8,24 @@ class Node {
 		T data;
 		int posX;
 		int posY;
-		Node<T>* next;
-		Node<T>* prev;
+		Node<T>* right;
 		Node<T>* down;
-		Node(T value){
-			this->data = value;
-			next = nullptr;
+
+		Node(T value, int x, int y){
+			data = value;
+			posX = x;
+			posY = y;
+			right = nullptr;
 			down = nullptr;
-			prev = nullptr;
 		};
+
+		Node(Node<T>* original){
+			data = original->data;
+			posX = original->posX;
+			posY = original->posY;
+			right = original->right;
+			down = original->down;
+		}
 };
 
 #endif

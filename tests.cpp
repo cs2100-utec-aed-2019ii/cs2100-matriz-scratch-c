@@ -1,19 +1,19 @@
 #include "circular_list.h"
+#include "sparse_matrix.h"
 
 int main(){
-	circular_list<int>* list = new circular_list<int>();
-	list->push_back(10);
-	list->print_values();
-	list->push_back(15);
-	list->print_values();
-	list->push_back(45);
-	list->print_values();
-	list->push_front(69);
-	list->print_values();
-	list->pop_front();
-	list->print_values();
-	list->pop_back();
-	list->print_values();
+	Sparse_matrix<int>* matrix = new Sparse_matrix<int>();
+	//std::cout << "row_q ==> " << matrix->get_row_q() << "\n";
+	//std::cout << "column_q ==> " << matrix->get_column_q() << "\n";
+
+	matrix->insert(10,0,0);
+	matrix->insert(3,0,0);
+	auto root = matrix->get_root();
+
+	std::cout << root->data << " " << root->posX << " " <<
+		root->posY << "\n\n";
+	//std::cout << "row_q ==> " << matrix->get_row_q() << "\n";
+	//std::cout << "column_q ==> " << matrix->get_column_q() << "\n";
 
 	return 0;
 }
