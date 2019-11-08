@@ -1,7 +1,6 @@
 # CS2100-Esparza
 #CS2100/groups
 
-
 ## Work
 Realizar la implementación de una matriz esparza.  Usando vector y listas circulares.  
 
@@ -62,8 +61,6 @@ int main( int, char * [])
 }
 
 ```
-
-
 
 ## Tooling
 	* Lenguaje C++
