@@ -89,12 +89,15 @@ class Sparse_matrix{
 				root->right = root;
 				root->down = root;
 			}else{
+				if (row_q < y) row_q = y;
+				if (column_q < x) column_q = x;
+
 				std::cout << "root != null\n";
 				Node<T>* col_root = nullptr;
 				auto prev = root;
 				auto curr = root->right;
 
-				//----------------------look for X
+				//----------------------look for posX
 				while (curr->posX < x){
 					if (curr->right == root)
 						break;
@@ -122,12 +125,12 @@ class Sparse_matrix{
 							curr = curr->down;
 				}
 
-				if (col_root == nullptr){
+				if (col_root == nullptr){ //case: new greater posX value.
 					Node<T>* new_node = new Node<T>(value, x, y);
 					new_node->right = curr;
 					new_node->down = new_node;
 					prev->right = new_node;
-				}else{//----------------------look for Y
+				}else{//----------------------look for posY
 					while (curr->posY < y){
 						if (curr->right == col_root)
 							break;
@@ -142,17 +145,66 @@ class Sparse_matrix{
 
 					if (curr->posY == y)
 						curr->data = value;
-				}
 
 				if (prev->posY > y){
 					auto new_node = new Node<T>(col_root);
 					col_root = new Node<T>(value, x, y);
 				}
 			}
+			}
+		};
+
+		void print_in_console(){
+			int i,j;
+			Node<T>* col_root = nullptr;
+
+			for (i = 0; i <= column_q; ++i){
+				if (col_root == nullptr)
+					col_root = root;
+				else
+					col_root = col_root->right;
+
+				auto curr = col_root;
+
+				for (j = 0; j <= row_q; ++j){
+					if (curr->posX != i || curr->posY != j)
+						std::cout << "  0  ";
+					else
+						std::cout << "  " << curr->data << "  ";
+
+					curr = curr->down;
+				}
+
+				std::cout << "\n";
+			}
+					
 		};
 		
+		void print2_in_console(){
+			int i,j;
+			Node<T>* row_root = nullptr;
 
+			for (i = 0; i <= row_q; ++i){
+				if (row_root == nullptr)
+					row_root = root;
+				else
+					row_root = row_root->down;
 
+				auto curr = row_root;
+
+				for (j = 0; j <= column_q; ++j){
+					if (curr->posX == j && curr->posY == i)
+						std::cout << "  " << curr->data << "  ";
+					else
+						std::cout << "  0  ";
+					curr = curr->right;
+				}
+
+				std::cout << "\n";
+			}
+					
+		}
+			
 
 };
 

@@ -7,11 +7,12 @@
 - [ ] Setters && Getters
 - [x] Insert values
 - [ ] Delete values
-- [ ] Print in console
+- [x] Print in console
 - [ ] Print in file
 - [ ] Multiplication
 - [ ] Addition
 - [ ] Transpose
 - [ ] Inverted
 - [ ] Load Image
+
 
