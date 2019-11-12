@@ -6,19 +6,27 @@ int main(){
 	std::cout << "row_q ==> " << matrix->get_row_q() << "\n";
 	std::cout << "column_q ==> " << matrix->get_column_q() << "\n";
 
-	matrix->insert(1,0,0);
+	matrix->insert(8,1,0);
 	matrix->insert(5,4,0);
 	matrix->insert(3,1,2);
 	matrix->insert(2,3,2);
-	matrix->insert(4,2,1);
+	matrix->insert(4,1,1);
 	auto root = matrix->get_root();
 
-	std::cout << root->data << " " << root->posX << " " <<
-		root->posY << "\n\n";
-	std::cout << "row_q ==> " << matrix->get_row_q() << "\n";
-	std::cout << "column_q ==> " << matrix->get_column_q() << "\n";
+	cout<<root->data;//8
+	cout<<root->right->data;//2
+	cout<<root->right->right->data;//5
+	cout<<"\n";
+	cout<<root->down->data;//4
+	cout<<root->down->down->data;//3
+	cout<<"\n";
 
-	matrix->print2_in_console();
+	// std::cout << root->data << " " << root->posX << " " <<
+	// 	root->posY << "\n\n";
+	// std::cout << "row_q ==> " << matrix->get_row_q() << "\n";
+	// std::cout << "column_q ==> " << matrix->get_column_q() << "\n";
+
+	//matrix->print2_in_console();
 
 	return 0;
 }
