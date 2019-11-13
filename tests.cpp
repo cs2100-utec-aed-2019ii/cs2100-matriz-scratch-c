@@ -7,12 +7,19 @@ int main(){
 	std::cout << "column_q ==> " << matrix->get_column_q() << "\n";
 
 	//matrix->insert(0,0,0);
-	matrix->insert(8,1,1);
-	matrix->insert(9,1,0);
-	matrix->insert(5,4,0);
-	matrix->insert(3,1,2);
+//	matrix->insert(8,1,1);
+//	matrix->insert(9,1,0);
+//	matrix->insert(5,4,0);
+//	matrix->insert(3,1,2);
+//	matrix->insert(2,3,2);
+//	matrix->insert(4,1,1);
+
+	matrix->insert(1,0,0);
 	matrix->insert(2,3,2);
-	matrix->insert(4,1,1);
+	matrix->insert(3,1,2);
+	matrix->insert(4,2,1);
+	matrix->insert(5,4,0);
+
 	auto root = matrix->get_root();
 
 
@@ -58,7 +65,15 @@ int main(){
 	// std::cout << "row_q ==> " << matrix->get_row_q() << "\n";
 	// std::cout << "column_q ==> " << matrix->get_column_q() << "\n";
 
-	//matrix->print2_in_console();
+	std::cout << "\n";
+	matrix->print_in_console();
+
+	auto trans = matrix->transpose();
+	std::cout << "\n";
+
+	trans.print_in_console();
+
+
 
 	return 0;
 }

@@ -214,33 +214,45 @@ class Sparse_matrix{
 			}
 		};
 
-		void print_in_console(){
-			int i,j;
-			Node<T>* col_root = nullptr;
-
-			for (i = 0; i <= column_q; ++i){
-				if (col_root == nullptr)
-					col_root = root;
-				else
-					col_root = col_root->right;
-
-				auto curr = col_root;
-
-				for (j = 0; j <= row_q; ++j){
-					if (curr->posX != i || curr->posY != j)
-						std::cout << "  0  ";
-					else
-						std::cout << "  " << curr->data << "  ";
-
-					curr = curr->down;
-				}
-
-				std::cout << "\n";
-			}
-					
+		void eliminate(int x, int y){
+			insert(0, x, y);
 		};
-		
-		void print2_in_console(){
+
+		Sparse_matrix transpose(){
+			Sparse_matrix result;
+			result.column_q = row_q;
+			result.row_q = column_q;
+
+			for (int i = 0; i <= row_q; ++i){
+				for (int j = 0; j <= column_q; ++j){
+					auto val = get_val(j,i);
+					if(val != 0)
+						result.insert(val, i, j);
+				}
+			}
+
+			/*
+			for (i = 0; i <= row_q; ++i){
+				if (row_root == nullptr)
+					row_root = root;
+				else
+					row_root = row_root->down;
+
+				auto curr = row_root;
+
+				for (j = 0; j <= column_q-1; ++j){
+					if (curr->posX == j && curr->posY == i)
+						result.insert(curr->data, curr->posY, curr->posX);
+
+					curr = curr->right;
+				}
+			}
+			*/
+
+			return result;
+		};
+
+		void print_in_console(){
 			int i,j;
 			Node<T>* row_root = nullptr;
 
@@ -253,22 +265,22 @@ class Sparse_matrix{
 				auto curr = row_root;
 
 				for (j = 0; j <= column_q; ++j){
-					if (curr->posX == j && curr->posY == i)
-						std::cout << "  " << curr->data << "  ";
-					else
-						std::cout << "  0  ";
+					if (curr->posX == j && curr->posY == i){
+						std::cout << "  " << curr->data << "  [" << curr->posX << 
+							", " << curr->posY << "]";
+					}else
+						std::cout << "  0  [" << curr->posX << ", " <<
+							curr->posY << "]";
 					curr = curr->right;
 				}
 
 				std::cout << "\n";
 			}
-					
 		}
 
 		void print(){
 			Node<T>* cur1 = root;
 			Node<T>* col_root = nullptr;
-
 		}
 
 		static Sparse_matrix<T>* identity(int x, int y){
