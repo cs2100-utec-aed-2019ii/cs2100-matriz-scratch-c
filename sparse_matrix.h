@@ -273,6 +273,15 @@ class Sparse_matrix{
 			}
 		}
 
+		static Sparse_matrix<T>* identity(int x, int y){
+			Sparse_matrix<T>* id = new Sparse_matrix<T>();
+			int diag = 0;
+			while(diag < x && diag < y){
+				id->insert(1,diag,diag);
+				diag++;
+			}
+		}
+
 
 };
 
@@ -283,26 +292,35 @@ Sparse_matrix<T>* add(Sparse_matrix<T>* m1, Sparse_matrix<T>* m2){
 		Sparse_matrix<T>* result = new Sparse_matrix<T>();
 		Node<T>* cur1 = m1->get_root();
 		Node<T>* cur2 = m2->get_root();
+		Node<T>* res = nullptr;
 		Node<T>* col_root = nullptr;
 
-		do{
-			col_root = cur1;
-
+		if(cur1){
 			do{
-				result->insert(cur1->data,cur1->posX,cur1->posY);
-				cur1 = cur1->down;
-			}while(cur1 != col_root);
+				col_root = cur1;
 
-			cur1 = cur1->right;
+				do{
+					result->insert(cur1->data,cur1->posX,cur1->posY);
+					cur1 = cur1->down;
+				}while(cur1 != col_root);
 
-		}while(cur1 != m1->get_root());
+				cur1 = cur1->right;
+
+			}while(cur1 != m1->get_root());
+		}
+		else{
+			return nullptr;
+		}
 
 		do{
-			col_root = cur2;
-
-			do{
-				//iterar sobre result al mismo tiempo que m2 
+			//iterar sobre result al mismo tiempo que m2 
 				//e insertar si no se encontro el valor
+				//Si no se encuentra el x del root de la columna de cur2, insertar toda la columna. sino iterar.
+			col_root = cur2;
+			res = result->get_root();
+
+			do{
+				
 			}while(cur2 != col_root);
 
 			cur2 = cur2->right;
