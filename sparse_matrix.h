@@ -89,7 +89,7 @@ class Sparse_matrix{
 
 		void insert(T value, int x, int y){
 			if(!root){
-				cout<<"Root inserted.\n";
+				//cout<<"Root inserted.\n";
 				root = new Node<T>(value,x,y);
 				root->down = root;
 				root->right = root;
@@ -111,10 +111,10 @@ class Sparse_matrix{
 					prev = curr;
 					curr = curr->right;
 
-					std::cout <<"Inserting: "<<value<<" - xprev: (" << prev->posX << ", " <<
-						prev->posY << ")";
-					std::cout << "curr: (" << curr->posX << ", " <<
-						curr->posY << ")\n";
+					// std::cout <<"Inserting: "<<value<<" - xprev: (" << prev->posX << ", " <<
+					// 	prev->posY << ")";
+					// std::cout << "curr: (" << curr->posX << ", " <<
+					// 	curr->posY << ")\n";
 				}
 
 				if(curr->posX == x){
@@ -127,26 +127,26 @@ class Sparse_matrix{
 					prev_col = curr;
 					curr = curr->down;
 
-					std::cout <<"Inserting: "<<value<<" - yprev: (" << prev_col->posX << ", " <<
-						prev_col->posY << ")";
-					std::cout << "curr: (" << curr->posX << ", " <<
-						curr->posY << ")\n";
+					//std::cout <<"Inserting: "<<value<<" - yprev: (" << prev_col->posX << ", " <<
+						//prev_col->posY << ")";
+					//std::cout << "curr: (" << curr->posX << ", " <<
+						//curr->posY << ")\n";
 				}
 
 				if (curr->posY == y){//Data overwrite
-				cout<<"Data overwrite!\n";
-						curr->data = value;
+					//cout<<"Data overwrite!\n";
+					curr->data = value;
 						
 				}
 				else if(curr->posY > y && prev_col){//new row
-					cout<<"New row inserted.\n";
+					//cout<<"New row inserted.\n";
 					Node<T>* new_node = new Node<T>(value,x,y);
 					prev_col->down = new_node;
 					new_node->down = curr;
 					
 				}
 				else if(curr->posY > y && prev_col == nullptr){//insert at begining of column
-					cout<<"Inserted at begining of column.\n";
+					//cout<<"Inserted at begining of column.\n";
 					Node<T>* new_node = new Node<T>(value, x, y);
 					new_node->right = col_root->right;
 					new_node->down = col_root;
@@ -155,7 +155,7 @@ class Sparse_matrix{
 					}
 					col_root->right = nullptr;
 					if(col_root == root){
-						cout<<"Root swapped.\n";
+						//cout<<"Root swapped.\n";
 						root = new_node;
 					}
 					if(col_root->down == col_root){
@@ -169,7 +169,7 @@ class Sparse_matrix{
 					}
 				}
 				else if(curr->down == col_root){//new greater value
-				cout<<"New greater value in col "<<x<<"\n";
+					//cout<<"New greater value in col "<<x<<"\n";
 					Node<T>* new_node = new Node<T>(value, x, y);
 					curr->down = new_node;
 					new_node->down = col_root;
@@ -178,7 +178,7 @@ class Sparse_matrix{
 
 			}
 			else if(curr->posX > x && prev){//new column insert
-					cout<<"New column inserted.\n";
+					//cout<<"New column inserted.\n";
 					Node<T>* new_node = new Node<T>(value, x, y);
 					prev->right = new_node;
 					new_node->right = curr;
@@ -186,7 +186,7 @@ class Sparse_matrix{
 					return;
 				}
 				else if (curr->posX > x && prev == nullptr){//al inicio
-					cout<<"New root.\n";
+					//cout<<"New root.\n";
 					Node<T>* new_node = root;
 					root = new Node<T>(value, x, y);
 					root->right = new_node;
@@ -203,7 +203,7 @@ class Sparse_matrix{
 					return;
 				}
 				else if (curr->right == root){ //case: new greater posX value.
-					cout<<"New greater posX.\n";
+					//cout<<"New greater posX.\n";
 					Node<T>* new_node = new Node<T>(value, x, y);
 					new_node->right = root;
 					new_node->down = new_node;
@@ -266,8 +266,16 @@ class Sparse_matrix{
 		}
 
 		void print(){
-			Node<T>* cur1 = root;
-			Node<T>* col_root = nullptr;
+			if(!root){
+				cout<<"Empty matrix.\n";
+				return;
+			}
+			for(int i = 0; i <= row_q; i++){
+				for(int j = 0; j <= column_q;j++){
+					cout<<get_val(j,i)<<" ";
+				}
+				cout<<"\n";
+			}
 
 		}
 
@@ -308,6 +316,20 @@ class Sparse_matrix{
 		return 0;
 	}
 
+		template<typename _T>
+		inline friend std::ostream& operator<< (std::ostream& out, Sparse_matrix<_T>& matrix){
+			if(!matrix.get_root()){
+				return out;
+			}
+			for(int i = 0; i <= matrix.get_row_q(); i++){
+				for(int j = 0; j <= matrix.get_column_q();j++){
+					out<<matrix.get_val(j,i)<<" ";
+				}
+				out<<"\n";
+			}
+			return out;
+		}
+
 
 };
 
@@ -347,7 +369,7 @@ Sparse_matrix<T>* add(Sparse_matrix<T>* m1, Sparse_matrix<T>* m2){
 				res = res->right;
 			}
 			if(cur2->posX < res->posX){//insert col
-				cout<<"Inserting new column.\n";
+				//cout<<"Inserting new column.\n";
 				col_root = cur2;
 
 				do{
@@ -367,12 +389,12 @@ Sparse_matrix<T>* add(Sparse_matrix<T>* m1, Sparse_matrix<T>* m2){
 					}
 
 					if(cur2->posY == res->posY){//Add to existing value
-					cout<<"Value found, adding!\n";
+						//cout<<"Value found, adding!\n";
 						res->data += cur2->data;
 						res = res->down;
 					}
 					else if(cur2->posY < res->posY){//Insert new value in column
-						cout<<"Inserting new value in column.\n";
+						//cout<<"Inserting new value in column.\n";
 						result->insert(cur2->data,cur2->posX,cur2->posY);
 					}
 					
@@ -400,7 +422,29 @@ Sparse_matrix<T>* add(Sparse_matrix<T>* m1, Sparse_matrix<T>* m2){
 
 template<typename T>
 Sparse_matrix<T>* mult(Sparse_matrix<T>* m1, Sparse_matrix<T>* m2){
-	
+	Sparse_matrix<T>* result = new Sparse_matrix<T>();
+
+	if(m1->get_column_q() != m2->get_row_q()){
+		cout<<"Invalid matrix dimentions.\n";
+		return result;
+	}
+	else{
+		T calc = 0;
+		for(int row = 0; row <= m1->get_row_q(); row++){
+			for(int col = 0; col <= m2->get_column_q(); col++){
+				for(int row2 = 0; row2 <= m2->get_row_q(); row2++){
+					//cout<<"m1["<<row<<"]["<<row2<<"]*m2["<<row2<<"]["<<col<<"]\n";
+					calc += m1->get_val(row2,row)*m2->get_val(col,row2);//row, col
+				}
+				//cout<<"Inserting answer in: x="<<col<<" and y="<<row<<"\n";
+				result->insert(calc,col,row);
+				calc = 0;
+			}
+		}
+		return result;
+	}
 }
+
+
 
 #endif

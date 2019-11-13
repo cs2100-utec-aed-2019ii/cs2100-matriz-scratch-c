@@ -13,46 +13,26 @@ int main(){
 	matrix->insert(3,1,2);
 	matrix->insert(2,3,2);
 	matrix->insert(4,1,1);
-	auto root = matrix->get_root();
 
-
-
-	cout<<root->data<<" ";
-	cout<<root->right->data<<" ";
-	cout<<root->right->right->data<<" ";
-	//cout<<root->right->right->right->data;
-	cout<<"\n";
-	cout<<root->down->data<<" ";
-	cout<<root->down->down->data<<" ";
-	cout<<"\n";
-
-	Sparse_matrix<int>* matrix2 = add(matrix,matrix);
-
-	root = matrix2->get_root();
+	cout<<*matrix;
 
 	cout<<"\n\nAdd tests:\n";
 
-	cout<<root->data<<" ";
-	cout<<root->right->data<<" ";
-	cout<<root->right->right->data<<" ";
-	//cout<<root->right->right->right->data;
-	cout<<"\n";
-	cout<<root->down->data<<" ";
-	cout<<root->down->down->data<<" ";
-	cout<<"\n";
+	Sparse_matrix<int>* matrix2 = add(matrix,matrix);
+
+	cout<<*matrix2;
 
 	cout<<"\n\nIdentity test:\n";
 
-	Sparse_matrix<int>* matrix3 = Sparse_matrix<int>::identity(3,3);
+	Sparse_matrix<int>* matrix3 = Sparse_matrix<int>::identity(5,5);
+
+	cout<<*matrix3;
+
+	cout<<"\n\nMult test\n\n";
+
+	cout<<*mult(matrix,matrix3);
+
 	
-	root = matrix3->get_root();
-
-	cout<<root->data<<" ";
-	cout<<root->right->data<<" ";
-	cout<<root->right->right->data<<" ";
-	cout<<"\n";
-	cout<<matrix3->get_val(3,3);
-
 	// std::cout << root->data << " " << root->posX << " " <<
 	// 	root->posY << "\n\n";
 	// std::cout << "row_q ==> " << matrix->get_row_q() << "\n";
