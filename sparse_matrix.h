@@ -344,11 +344,15 @@ Sparse_matrix<T>* add(Sparse_matrix<T>* m1, Sparse_matrix<T>* m2){
 		Node<T>* col_root = nullptr;
 		Node<T>* col_res = nullptr;
 
+		result->set_column_q(m1->get_row_q());
+		result->set_row_q(m1->get_row_q());
+
 		if(cur1){
 			do{
 				col_root = cur1;
 
 				do{
+					//cout<<"Inserting: "<<cur1->data<<" "<<cur1->posX<<" "<<cur1->posY<<"\n";
 					result->insert(cur1->data,cur1->posX,cur1->posY);
 					cur1 = cur1->down;
 				}while(cur1 != col_root);
@@ -360,7 +364,8 @@ Sparse_matrix<T>* add(Sparse_matrix<T>* m1, Sparse_matrix<T>* m2){
 		else{
 			return nullptr;
 		}
-
+		
+		//cout<<"\nFirst phase:\n"<<*result<<"\n";
 		res = result->get_root();
 
 		do{
@@ -369,7 +374,7 @@ Sparse_matrix<T>* add(Sparse_matrix<T>* m1, Sparse_matrix<T>* m2){
 				res = res->right;
 			}
 			if(cur2->posX < res->posX){//insert col
-				//cout<<"Inserting new column.\n";
+				//cout<<"Inserting new column."<<cur2->data<<" "<<cur2->posX<<" "<<cur2->posY<<"\n";
 				col_root = cur2;
 
 				do{
@@ -389,7 +394,7 @@ Sparse_matrix<T>* add(Sparse_matrix<T>* m1, Sparse_matrix<T>* m2){
 					}
 
 					if(cur2->posY == res->posY){//Add to existing value
-						//cout<<"Value found, adding!\n";
+						//cout<<"Value found, adding!"<<cur2->data<<" "<<cur2->posX<<" "<<cur2->posY<<"\n";
 						res->data += cur2->data;
 						res = res->down;
 					}

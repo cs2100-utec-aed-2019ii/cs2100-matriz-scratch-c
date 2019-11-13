@@ -13,6 +13,7 @@ int main(){
 	matrix->insert(3,1,2);
 	matrix->insert(2,3,2);
 	matrix->insert(4,1,1);
+	matrix->insert(7,0,4);
 
 	cout<<*matrix;
 
@@ -21,6 +22,8 @@ int main(){
 	Sparse_matrix<int>* matrix2 = add(matrix,matrix);
 
 	cout<<*matrix2;
+
+	//cout<<"\n\n"<<matrix2->get_val(0,4)<<"\n\n";
 
 	cout<<"\n\nIdentity test:\n";
 
